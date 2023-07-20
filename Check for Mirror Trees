@@ -1,0 +1,38 @@
+*********USING ADJACENCY LIST TECHNIQUE************
+#include<vector>
+# include<bits/stdc++.h>
+
+bool checkMirror(int n, vector<vector<int>> &edgesA, vector<vector<int>> &edgesB)
+{
+    vector<int> adj[n];
+    for(int i=0;i<edgesA.size();i++)
+    {
+        int a = edgesA[i][0];
+        int b = edgesA[i][1];
+        adj[a].push_back(b);
+    }
+    vector<int> bdj[n];
+    for(int i=0;i<edgesB.size();i++)
+    {
+        int a = edgesB[i][0];
+        int b = edgesB[i][1];
+        bdj[a].push_back(b);
+    }
+    for(int i=0;i<n;i++)
+    {
+        reverse(bdj[i].begin(), bdj[i].end());
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<adj[i].size();j++)
+        {
+            if(adj[i][j] != bdj[i][j])
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+    
+}
