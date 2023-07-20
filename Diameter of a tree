@@ -1,0 +1,43 @@
+**********USING HEIGHT RECURSSIVE*****
+  /************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+int hei(TreeNode<int> * root)
+{
+    if(root == NULL)
+    {
+        
+        return 0;
+    }
+    int l = hei(root -> left);
+    int r = hei(root -> right);
+    return max(l,r)+1;
+}
+int diameterOfBinaryTree(TreeNode<int> *root)
+{
+  if (root == NULL) {
+    return 0;
+  }
+
+
+  int l = diameterOfBinaryTree(root -> left);
+  int r = diameterOfBinaryTree(root -> right);
+  int h = hei(root->left)+hei(root -> right);
+  return max(l,max(r, h));
+}
