@@ -1,0 +1,105 @@
+********USIGN RECURSION FOR DIFF LEFTS AND LEAFS AND RIGHTS*********
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the Binary Tree node structure:
+    
+    template <typename T>
+    class TreeNode {
+        public :
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode() {
+            if(left)
+                delete left;
+            if(right)
+                delete right;
+        }
+    };
+
+************************************************************/
+void le(TreeNode<int>* root, vector<int>&ans)
+{
+    if(root == NULL)
+    {
+        return ;
+    }
+    if(root -> left == NULL && root -> right == NULL)
+    {
+        return ;
+    }
+    ans.push_back(root -> data);
+    if(root -> left)
+    {
+        le(root -> left, ans);
+    }
+    else
+    {
+        le(root -> right, ans);
+    } 
+}
+void leaf(TreeNode<int> * root, vector<int>&ans)
+{
+    if(root == NULL)
+    {
+        return ;
+    }
+
+    if(root -> left == NULL && root -> right == NULL)
+    {
+        ans.push_back(root -> data);
+
+        return ;
+    }
+    if(root -> left)
+    {
+        leaf(root -> left, ans);
+    }
+    if(root -> right)
+    {
+        leaf(root -> right, ans);
+    }
+}
+void ri(TreeNode<int> *root, vector<int>&ans)
+{
+    if(root == NULL)
+    {
+        return ;
+    }
+     if(root -> left == NULL && root -> right == NULL)
+    {
+          return ;
+    }
+    if(root -> right)
+    {
+        ri(root -> right, ans);
+    }
+    else
+    {
+        ri(root -> left, ans);
+    }
+
+    ans.push_back(root -> data);
+}
+vector<int> traverseBoundary(TreeNode<int>* root){
+    vector<int> ans;
+    if(root == NULL)
+    {
+        return ans;
+    }
+    ans.push_back(root -> data);
+    le(root->left, ans);
+    leaf(root->left, ans);
+    leaf(root -> right, ans);
+    ri(root -> right, ans);
+
+    return ans;
+}
