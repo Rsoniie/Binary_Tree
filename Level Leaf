@@ -1,0 +1,60 @@
+***********USING BFS TRAVERSAL******
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure:
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+int levelLeaf(TreeNode<int> *root) {
+    if(root == NULL)
+    {
+        return 0;
+    }
+    //int mar = -1;
+   // vector<int> v;
+   unordered_set<int> st;
+    queue<pair<TreeNode<int>*, int>> q;
+    q.push({root, 0});
+    while(!q.empty())
+    {
+        TreeNode<int>* node = q.front().first;
+        int lvl = q.front().second;
+        q.pop();
+        if(node -> left == NULL && node -> right == NULL)
+        {
+            st.insert(lvl);
+            if(st.size()  > 1)
+            {
+                return 0;
+            }
+        }
+        lvl++;
+        if(node -> left)
+        {
+            q.push({node -> left,lvl});
+        }
+        if(node -> right)
+        {
+            q.push({node -> right,lvl});
+        }
+
+    }
+   
+
+    return 1;
+}
