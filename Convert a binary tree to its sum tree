@@ -1,0 +1,74 @@
+******RECURSSIVE APPROACH*************
+/************************************************************
+
+    Following is the Binary Tree node class:
+        
+    template <typename T = int>
+    class TreeNode
+    {
+        public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val)
+        {
+            this->data = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+void getsum(TreeNode<int>* root, int &sum)
+{
+    if(root == NULL)
+    {
+        return ;
+    }
+    getsum(root -> left, sum);
+    sum+=root ->data;
+    getsum(root -> right, sum);
+    
+}
+void convert(TreeNode<int>* &root)
+{
+    if(root == NULL)
+    {
+        return;
+    }
+    int sum=0;
+    getsum(root -> left, sum);
+    getsum(root -> right, sum);
+    root -> data = sum;
+    if(root -> left == NULL && root -> right == NULL)
+    {
+        root -> data = 0;
+    }
+    convert(root -> left);
+    convert(root -> right);
+
+}
+TreeNode<int> *convertToSumTree(TreeNode<int> *root) {
+    if(root == NULL)
+    {
+     return NULL;
+    }
+   /* int sum=0;
+    getsum(root -> left, sum);
+    getsum(root -> right, sum);
+    root -> data = sum;
+    if(root -> left == NULL && root -> right == NULL)
+    {
+        root -> data = 0;
+    }
+    convertToSumTree(root -> left);
+    convertToSumTree(root -> right);*/
+    convert(root);
+
+
+
+    return root;
+
+    
+}
