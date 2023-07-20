@@ -1,0 +1,115 @@
+****************BRUTE FORCE TC = O(N^2)*******
+#include <bits/stdc++.h> 
+/*************************************************************
+ 
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+// brute force n^2
+int height(BinaryTreeNode<int>* root)
+{
+    if(root == NULL)
+    {
+        return 0;
+    }
+
+    int l = height(root -> left);
+    int r = height(root -> right);
+    return max(l,r)+1;
+}
+bool isBalancedBT(BinaryTreeNode<int>* root) {
+    queue<BinaryTreeNode<int>*> q;
+    q.push(root);
+    while(!q.empty())
+    {
+        BinaryTreeNode<int>* node = q.front();
+        q.pop();
+        int lh = height(node -> left);
+        int rh = height(node -> right);
+        if(abs(lh - rh) > 1)
+        {
+            return false;
+        }
+        if(node -> left)
+        {
+            q.push(node -> left);
+        }
+        if(node -> right)
+        {
+            q.push(node -> right);
+        }
+    }
+    
+
+    return true;
+}
+
+
+*****************OPTIMAL APPROACH USING RECURSSION TC = O(N)***********
+#include <bits/stdc++.h> 
+/*************************************************************
+ 
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+// brute force n^2
+int height(BinaryTreeNode<int>* root)
+{
+    if(root == NULL)
+    {
+        return 0;
+    }
+
+    int l = height(root -> left);
+    int r = height(root -> right);
+    if(l == -1 || r == -1)
+    {
+        return -1;
+    }
+    if(abs(l-r) <= 1)
+    {
+        return max(l, r)+1;
+    }
+
+    return -1;
+}
+bool isBalancedBT(BinaryTreeNode<int>* root) {
+    if(root == NULL)
+    {
+        return true;
+    }
+    if(height(root) != -1)
+    {
+        return true;
+    }
+    return false;
+    
+}
