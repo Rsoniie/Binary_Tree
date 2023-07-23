@@ -1,0 +1,50 @@
+***********USING RECURSSION******
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+void solve(TreeNode<int>*root, TreeNode<int>*&head, TreeNode<int>*&prev, int &f)
+{
+    if(!root)
+    {
+        return ;
+    }
+    solve(root -> left, head, prev, f);
+    if(f == 0)
+    {
+        f = 1;
+        prev = root;
+        head = root;
+    }
+    else 
+    {
+        prev -> right = root;
+        prev -> right -> left = prev;
+        prev = prev -> right;
+    }
+
+    solve(root -> right, head, prev, f);
+}
+TreeNode<int>* bstToSortedDLL(TreeNode<int> *root)
+{
+	TreeNode<int>* head = NULL;
+    TreeNode<int>* pre = NULL;
+    int f = 0;
+    solve(root, head, pre, f);
+    return  head;
+}
